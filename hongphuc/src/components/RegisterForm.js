@@ -10,7 +10,7 @@ function RegistationForm(){
         const value = event.target.value;
         console.log(name);
         console.log(value);
-        setInput(values => ({values, [name]:value}))
+        setInput(values => ({...values, [name]:value}))
     }
     const handleSubmit = (event)=> {
         //Kiểm soát bất đồng bộ dự kiện

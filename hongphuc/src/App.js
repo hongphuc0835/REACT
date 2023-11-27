@@ -1,33 +1,103 @@
-import logo from "./logo.svg";
-import "./App.css";
-import "./style.css"
-import Product from "./product";
 
-function App() {
-  return (
-    <div>
-      <h1>CUỘC THI SẮC ĐẸP</h1>
-      <div className="App">
-        <Product
-          img="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/401076257_304226425813360_1958069102803817421_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9PZOr508OFoAX9dsUxv&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBup4qmUiE0IFOKMEhfi2KT7_I4SsLaU07tFKIC14QxVQ&oe=6553420A&w=300&h=300&dpr=1"
-          name="Nguyễn Tuân"
-          desc="The new product of Nike"
-          price="$200"
+import "./style.css"
+
+import { useState } from "react";
+import Input from "./input";
+import Button from "./button";
+import validateEmail from "./utils";
+
+
+export default function App(){
+  const [email,setEmail] = useState(
+   {
+    value:"",
+    isTouched:false,
+    isValid:false
+   }
+  );
+  const [pwd, setPwd] = useState({
+    value:"",
+    isTouched:false,
+    isValid:false
+  });
+  const [confirmPwd, setConfirmPwd] = useState({
+    value:"",
+    isTouched:false,
+    isValid:false
+  });
+  function handleEmailInput(e){
+    setEmail({
+      isTouched:true,
+      value:e.target.value,
+      isValid: validateEmail(e.target.value)
+    });
+  }
+  function handlePwdInput(e){
+    setPwd({
+      isTouched:true,
+      value:e.target.value,
+      isValid:e.target.value.lenght >= 6 ? true : false
+    });
+
+  }
+  function handleConfirmPwdInput(e){
+    setConfirmPwd({
+      isTouched:true,
+      value:e.target.value,
+      isValid:e.target.value === pwd.value ? true : false
+    });
+  }
+  function handleSubmit(e){
+    e.preventDefault();
+    window.alert(
+      `Submitted: \n Email: ${email.value} \n Password: ${pwd.value}`
+    );
+  }
+  const formIsValid = email.isValid && pwd.isValid && confirmPwd.isValid;
+
+  return(
+    <div className="App">
+      <div className="form-container">
+      <Input
+        name="email"
+        type="text"
+        label="Email"
+        onChange={handleEmailInput}
+        isValid={email.isValid}
+        isTouched={email.isTouched}
+        placeholder="Email..."
+        value={email.value}
+        errorMng="Enter valid email"
         />
-        <Product
-          img="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/401076257_304226425813360_1958069102803817421_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9PZOr508OFoAX9dsUxv&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBup4qmUiE0IFOKMEhfi2KT7_I4SsLaU07tFKIC14QxVQ&oe=6553420A"
-          name="Nguyễn Tuân"
-          desc="The new product of Nike"
-          price="$200"
+        <Input
+        name="password"
+        type="password"
+        label="password"
+        onChange={handlePwdInput}
+        isValid={pwd.isValid}
+        isTouched={pwd.isTouched}
+        placeholder="password..."
+        value={pwd.value}
+        errorMng="Minimum 6 characters"
         />
-        <Product
-          img="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/401076257_304226425813360_1958069102803817421_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9PZOr508OFoAX9dsUxv&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBup4qmUiE0IFOKMEhfi2KT7_I4SsLaU07tFKIC14QxVQ&oe=6553420A"
-          name="Nguyễn Tuân"
-          desc="The new product of Nike"
-          price="$200"
+        <Input
+        name="confirmPwd"
+        type="password"
+        label="Confirm password"
+        onChange={handleConfirmPwdInput}
+        isValid={confirmPwd.isValid}
+        isTouched={confirmPwd.isTouched}
+        placeholder="Confirm password..."
+        value={confirmPwd.value}
+        errorMng="Password do not match!"
         />
+        <Button 
+        text="REGISTER"
+        ocClick={handleSubmit}
+        disabled={!formIsValid}
+        />
+        
       </div>
     </div>
   );
 }
-export default App;
