@@ -1,10 +1,11 @@
 
 import { StrictMode } from"react"
 import { createRoot } from "react-dom/client"
-import App from "./App";
+// import App from "./App";
 import XmlHttpExample from "./components/XmlHttpRequestExample";
 import FetchExample from "./components/FetchExample";
 import AxiosExample from "./components/AxiosExample";
+import App from "./thi/App";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);

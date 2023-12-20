@@ -22,4 +22,4 @@ function XmlHttpExample(){
     );
 }
 
-export default XmlHttpExample;c
+export default XmlHttpExample;
